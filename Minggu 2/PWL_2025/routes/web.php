@@ -29,7 +29,7 @@ Route::resource('items', ItemController::class); // Membuat resource route untuk
 
 
 
-
+    
 // Route::get('/hello', function () { // Mendefinisikan rute GET untuk halaman home ('/home')
 //     return 'hello world';
 // });
