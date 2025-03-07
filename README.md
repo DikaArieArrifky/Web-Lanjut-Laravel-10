@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="img/GKL7_Politeknik Negeri Malang - Koleksilogo.com.jpg" alt="Logo" width="150">
+  <img src="img/logo.png" alt="Logo" width="150">
 </p>
 
 # Mata Kuliah Web Lanjut
