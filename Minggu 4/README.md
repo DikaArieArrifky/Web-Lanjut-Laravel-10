@@ -227,7 +227,112 @@
 
    **Hasil true berarti atribut sudah pernah terganti.**
 
+# Praktikum 2.6 – Create, Read, Update, Delete (CRUD)
 
+## 1. Menampilkan Data User
+## Buka file `user.blade.php` pada folder `resources/views/` dan ubah scriptnya sesuai instruksi yang diberikan.
+<img src="imgSS/Praktikum 2/26.png">
+
+
+## 2. Membuat Controller untuk Read Data
+## Buka file `UserController.php` pada folder `app/Http/Controllers/` dan ubah scriptnya untuk menampilkan data pengguna sesuai dengan perintah.
+<img src="imgSS/Praktikum 2/262.png">
+
+## 3. Menjalankan Program dan Observasi
+## Simpan perubahan dan jalankan project pada browser. 
+<img src="imgSS/Praktikum 2/263.png">
+
+## - Tabel user berhasil ditampilkan.
+## - Fitur CRUD belum dapat digunakan karena belum dibuat sepenuhnya.
+
+## 4. Membuat Form Tambah Data User
+## Buat file baru `user_tambah.blade.php` pada folder `resources/views/` dan tambahkan script yang sesuai.
+<img src="imgSS/Praktikum 2/264.png">
+
+## 5. Menambahkan Route untuk Tambah Data
+## Buka file `web.php` pada folder `routes/` dan tambahkan script untuk mengarahkan ke halaman tambah user.
+<img src="imgSS/Praktikum 2/265.png">
+
+
+## 6. Menambahkan Method Tambah di Controller
+## Buka `UserController.php` dan tambahkan method `tambah()` di bawah method `index`.
+<img src="imgSS/Praktikum 2/266.png">
+
+
+## 7. Menjalankan Program dan Observasi
+## Jalankan aplikasi dan klik link `+ Tambah User`. 
+<img src="imgSS/Praktikum 2/267.png">
+
+## - Halaman tambah user berhasil ditampilkan.
+
+## 8. Menambahkan Route untuk Simpan Data
+## Tambahkan route pada `web.php` untuk menyimpan data yang ditambahkan.
+<img src="imgSS/Praktikum 2/268.png">
+
+
+## 9. Menambahkan Method Simpan Data di Controller
+## Tambahkan method `tambah_simpan()` pada `UserController.php` untuk menangani penyimpanan data.
+<img src="imgSS/Praktikum 2/269.png">
+
+
+## 10. Menjalankan Program dan Observasi
+## Jalankan aplikasi, akses `localhost:8000/user/tambah`, isi form, dan klik simpan.
+<img src="imgSS/Praktikum 2/270.png">
+<img src="imgSS/Praktikum 2/2701.png">
+
+
+## - Data berhasil disimpan ke dalam database.
+
+## 11. Membuat Form Ubah Data User
+## Buat file baru `user_ubah.blade.php` pada folder `resources/views/` dan tambahkan script sesuai instruksi.
+<img src="imgSS/Praktikum 2/271.png.png">
+
+
+## 12. Menambahkan Route untuk Ubah Data
+## Tambahkan script pada `web.php` untuk mengarahkan ke halaman ubah user.
+<img src="imgSS/Praktikum 2/272.png">
+
+
+## 13. Menambahkan Method Ubah di Controller
+## Tambahkan method `ubah()` pada `UserController.php` di bawah method `tambah_simpan()`.
+<img src="imgSS/Praktikum 2/273.png">
+
+
+## 14. Menjalankan Program dan Observasi
+## Jalankan aplikasi dan klik link `Ubah`.
+<img src="imgSS/Praktikum 2/274.png">
+
+## - Halaman ubah user berhasil ditampilkan.
+
+## 15. Menambahkan Route untuk Simpan Perubahan
+## Tambahkan script pada `web.php` untuk menyimpan perubahan data.
+<img src="imgSS/Praktikum 2/275.png">
+
+## 16. Menambahkan Method Simpan Perubahan di Controller
+## Tambahkan method `ubah_simpan()` pada `UserController.php`.
+<img src="imgSS/Praktikum 2/276.png">
+
+
+## 17. Menjalankan Program dan Observasi
+## Jalankan aplikasi, akses `localhost:8000/user/ubah/1`, ubah data, dan klik ubah.
+<img src="imgSS/Praktikum 2/277.png">
+
+
+## 18. Menambahkan Route untuk Hapus Data
+## Tambahkan script pada `web.php` untuk menghapus data user.
+<img src="imgSS/Praktikum 2/278.png">
+
+
+## 19. Menambahkan Method Hapus di Controller
+## Tambahkan method `hapus()` pada `UserController.php`.
+<img src="imgSS/Praktikum 2/279.png">
+
+
+## 20. Menjalankan Program dan Observasi
+## Jalankan aplikasi, klik tombol hapus pada salah satu user.
+<img src="imgSS/Praktikum 2/280.png">
+
+## - Data user dengan username "dika" berhasil dihapus dari database.
 
 
 
