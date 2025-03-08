@@ -66,6 +66,15 @@ class UserController extends Controller
         // $user = UserModel::where('level_id', 2)->count();
         // //dd($user);
 
+        //----------------praktikum 2.4 retreiving or creating models
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'Manager'
+                
+        //     ]
+        // );
+
         // $user = UserModel::firstOrCreate(
         //     [
         //         'username' => 'manager22',
@@ -92,17 +101,66 @@ class UserController extends Controller
         //     ],
         // );
 
-        $user = UserModel::firstOrNew(
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager33',
+        //         'nama' => 'Manager tiga tiga',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+
+        // $user->save();
+
+        //return view('user', ['data' => $user]);
+
+        
+//-----------praktikum 2.5 attribute changes
+        // $user = UserModel::create(
+        //     [
+        //         'username' => 'manager55',
+        //         'nama' => 'Manager55',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+
+        // $user->username = 'manager56';
+
+        // $user->isDirty(); //true
+        // $user->isDirty('username'); //true
+        // $user->isDirty('nama'); //false
+        // $user->isDirty('nama', 'username'); //true
+
+        // $user->isClean(); //false
+        // $user->isClean('username'); //false
+        // $user->isClean('nama'); //true
+        // $user->isClean('nama', 'username'); //false
+
+        // $user->save();
+
+        // $user->isDirty();//false
+        // $user->isClean();//true
+        // dd($user->isDirty());
+        
+        $user = UserModel::create(
             [
-                'username' => 'manager33',
-                'nama' => 'Manager tiga tiga',
+                'username' => 'manager11',
+                'nama' => 'Manager11',
                 'password' => Hash::make('12345'),
                 'level_id' => 2
             ],
         );
 
+        $user->username = 'manager12';
         $user->save();
+
+        $user->wasChanged();//true
+        $user->wasChanged('username'); //false
+        $user->wasChanged('username', 'level_id'); //true
+        $user->wasChanged('nama'); //false
+        dd($user->wasChanged(['nama','username']));//true
         
-        return view('user', ['data' => $user]);
+        
     }
 }
