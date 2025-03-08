@@ -334,6 +334,45 @@
 
 ## - Data user dengan username "dika" berhasil dihapus dari database.
 
+# Praktikum 2.7 – Relationships
+
+## 1. Menambahkan Relasi pada Model User
+
+## Buka file `UserModel.php` pada folder `app/Models/` dan tambahkan script yang sesuai untuk mengatur hubungan antar model.
+<img src="imgSS/Praktikum 2/a1.png">
+
+## 2. Mengubah Method di Controller
+
+## Buka file `UserController.php` pada folder `app/Http/Controllers/` dan ubah method yang ada sesuai dengan instruksi.
+<img src="imgSS/Praktikum 2/a2.png">
+
+## 3. Menjalankan Program dan Observasi
+
+## Simpan perubahan dan jalankan project pada browser.
+<img src="imgSS/Praktikum 2/a3.png">
+
+## - Data user berhasil ditampilkan dengan relasi yang telah dibuat.
+
+## 4. Mengubah Kembali Method di Controller
+
+## Buka file `UserController.php` dan ubah kembali method yang ada sesuai dengan instruksi yang diberikan.
+<img src="imgSS/Praktikum 2/a4.png">
+
+
+## 5. Mengubah Tampilan pada View
+
+## Buka file `user.blade.php` pada folder `resources/views/` dan sesuaikan scriptnya.
+<img src="imgSS/Praktikum 2/a5.png">
+
+
+## 6. Menjalankan Program dan Observasi
+
+## Jalankan aplikasi dan akses kembali halaman user pada browser.
+<img src="imgSS/Praktikum 2/a6.png">
+
+## - Data user ditampilkan dengan relasi yang sesuai, menunjukkan hubungan yang telah dibuat dalam model.
+
+
 
 
 
