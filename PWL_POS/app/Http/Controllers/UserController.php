@@ -13,19 +13,19 @@ class UserController extends Controller
 {
     //
     public function index()
-    {   
-    //----------------------------JS 3 ------------------------------
-    //     $data = [
-    //         'username' => 'customer-1',
-    //         'nama' => 'Pelanggan',
-    //         'Password' => Hash::make('12345'),
-    //         'level_id' => 4
-    //     ];
-    //    UserModel::insert($data);// tambahkan ke tabel m_user
+    {
+        //----------------------------JS 3 ------------------------------
+        //     $data = [
+        //         'username' => 'customer-1',
+        //         'nama' => 'Pelanggan',
+        //         'Password' => Hash::make('12345'),
+        //         'level_id' => 4
+        //     ];
+        //    UserModel::insert($data);// tambahkan ke tabel m_user
 
-    //     //mencoba akses model UserModel
-    //     $users = UserModel::all(); // ambil semua data dari tabel m_user
-    //     return view('user', ['data' => $users]);
+        //     //mencoba akses model UserModel
+        //     $users = UserModel::all(); // ambil semua data dari tabel m_user
+        //     return view('user', ['data' => $users]);
 
         // $data = [
         //     'nama' => 'Pelanggan Pertama',
@@ -36,7 +36,7 @@ class UserController extends Controller
         // $users = UserModel::all(); //ambil semua data dari tabel m_user
         // return view('user', ['data' => $users]);
 
-//----------------------------JS 4 ------------------------------
+        //----------------------------JS 4 ------------------------------
         // $data = [
         //     'level_id' => 2,
         //     'username' => 'manager_tiga',
@@ -63,8 +63,46 @@ class UserController extends Controller
 
         //$user = UserModel::where('username', 'manager9')->firstOrFail();
 
-        $user = UserModel::where('level_id', 2)->count();
-        //dd($user);
+        // $user = UserModel::where('level_id', 2)->count();
+        // //dd($user);
+
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager22',
+        //         'nama' => 'Manager dua dua',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ]
+        // );
+
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'Manager'
+                
+        //     ]
+        // );
+
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager33',
+        //         'nama' => 'Manager tiga tiga',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+
+        $user = UserModel::firstOrNew(
+            [
+                'username' => 'manager33',
+                'nama' => 'Manager tiga tiga',
+                'password' => Hash::make('12345'),
+                'level_id' => 2
+            ],
+        );
+
+        $user->save();
+        
         return view('user', ['data' => $user]);
     }
 }
