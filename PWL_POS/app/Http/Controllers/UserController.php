@@ -12,6 +12,7 @@ class UserController extends Controller
     //
     public function index()
     {   
+    //----------------------------JS 3 ------------------------------
     //     $data = [
     //         'username' => 'customer-1',
     //         'nama' => 'Pelanggan',
@@ -24,13 +25,24 @@ class UserController extends Controller
     //     $users = UserModel::all(); // ambil semua data dari tabel m_user
     //     return view('user', ['data' => $users]);
 
-        $data = [
-            'nama' => 'Pelanggan Pertama',
-        ];
-        UserModel::where('username', 'customer-1')->update($data); //update data user
+        // $data = [
+        //     'nama' => 'Pelanggan Pertama',
+        // ];
+        // UserModel::where('username', 'customer-1')->update($data); //update data user
 
-        //coba akses model UserModel
-        $users = UserModel::all(); //ambil semua data dari tabel m_user
-        return view('user', ['data' => $users]);
+        // //coba akses model UserModel
+        // $users = UserModel::all(); //ambil semua data dari tabel m_user
+        // return view('user', ['data' => $users]);
+
+//----------------------------JS 4 ------------------------------
+        $data = [
+            'level_id' => 2,
+            'username' => 'manager_tiga',
+            'nama' => 'Manager 3',
+            'password' => Hash::make('12345')
+        ];
+        UserModel::create($data);
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
     }
 }
