@@ -189,7 +189,7 @@
 **User 2 ditemukan dikarenakan sudah ada pada data sebelumnya. Jika tidak ada, maka akan dibuat objek baru tetapi tidak langsung disimpan ke dalam database.**
 
 ## 9. Simpan kode program Langkah 9. Kemudian jalankan pada browser dan amati apa yang terjadi dan cek juga pada phpMyAdmin pada tabel m_user serta beri penjelasan dalam laporan.
-<img src="imgSS/Praktikum 2/249">
+<img src="imgSS/Praktikum 2/249.png">
 
 **Berhasil membuat objek namun tidak langsung disimpan dalam database. Jika ingin menyimpan langsung, harus menambahkan user->save().**
 
@@ -285,7 +285,7 @@
 
 ## 11. Membuat Form Ubah Data User
 ## Buat file baru `user_ubah.blade.php` pada folder `resources/views/` dan tambahkan script sesuai instruksi.
-<img src="imgSS/Praktikum 2/271.png.png">
+<img src="imgSS/Praktikum 2/271.png">
 
 
 ## 12. Menambahkan Route untuk Ubah Data
