@@ -14,11 +14,13 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//js 5 
 Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/kategori', [KategoriController::class, 'index']);
+Route::get('/kategori/create', [KategoriController::class,'create']);
+Route::Post('/kategori', [KategoriController::class,'store']);
 
 // Route::get('/level', [LevelController::class, 'index']);
 
