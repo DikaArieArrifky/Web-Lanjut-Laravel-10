@@ -18,9 +18,10 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/kategori', [KategoriController::class, 'index']);
 
 // Route::get('/level', [LevelController::class, 'index']);
-// Route::get('/kategori', [KategoriController::class, 'index']);
+
 
 Route::get('/user', [UserController::class, 'index']);
 
