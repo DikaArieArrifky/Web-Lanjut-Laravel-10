@@ -1,7 +1,6 @@
 @extends ('layouts.app')
 
 {{-- Customize layout section --}}
-
 @section('subtitle', 'Kategori')
 @section('content_header_title','Home')
 @section('content_header_subtitle','Kategori')
@@ -9,7 +8,20 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-body">Manage Kategori</div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                {{-- Kolom Kiri: Judul --}}
+                <div class="col">
+                    <h5>Manage Kategori</h5>
+                </div>
+                
+                {{-- Kolom Kanan: Tombol Add --}}
+                <div class="col text-end">
+                    <a href="{{ url('/kategori/create') }}" class="btn btn-success">Add</a>
+                </div>
+            </div>
+        </div>
+        
         <div class="card-body">
             {{ $dataTable -> table() }}
         </div>
