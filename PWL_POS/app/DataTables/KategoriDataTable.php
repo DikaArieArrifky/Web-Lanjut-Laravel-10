@@ -26,11 +26,11 @@ class KategoriDataTable extends DataTable
             //->setRowId('id');
             ->addColumn('action', function ($row) {
                 return '<div style="display: flex; gap: 5px; align-items: center;">
-                            <a href="' . route('kategori.edit', $row->kategori_id) . '">Edit</a> 
+                            <a href="' . route('kategori.edit', $row->kategori_id) . '"class="btn btn-warning btn-sm">Edit</a> 
                             <form action="' . route('kategori.destroy', $row->kategori_id) . '" method="POST" style="display:inline-block; margin:0;" onsubmit="return confirm(\'Yakin ingin menghapus?\')">
                                 ' . csrf_field() . '
                                 ' . method_field("DELETE") . '
-                                <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer;">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </div>';
             })

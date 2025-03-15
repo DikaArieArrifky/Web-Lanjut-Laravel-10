@@ -315,6 +315,13 @@ return [
             'icon' => 'fas fa-fw fa-list',
         ],
 
+        [ 
+            'text' => 'Manage Level User',
+            'url'=> 'level',
+            'icon'=> 'fas fa-fw fa-list',
+
+        ],
+
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
