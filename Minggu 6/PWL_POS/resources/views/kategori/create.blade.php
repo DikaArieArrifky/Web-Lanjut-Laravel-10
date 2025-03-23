@@ -1,37 +1,45 @@
 @extends('layouts.template')
-
 @section('content')
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h4>{{ $breadcrumb->title }}</h4>
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form action="{{ url('/kategori') }}" method="POST">
+            <form method="POST" action="{{ url('kategori') }}" class="form-horizontal">
                 @csrf
-                
-                <div class="mb-3">
-                    <label for="kategori_kode" class="form-label">Kode Kategori</label>
-                    <input type="text" name="kategori_kode" id="kategori_kode" class="form-control @error('kategori_kode') is-invalid @enderror" value="{{ old('kategori_kode') }}" required>
-                    @error('kategori_kode')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                <div class="form-group row">
+                    <label class="col-2 control-label col-form-label">Kode Kategori</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" id="kategori_kode" name="kategori_kode"
+                            value="{{ old('kategori_kode') }}" required>
+                        @error('kategori_kode')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="kategori_nama" class="form-label">Nama Kategori</label>
-                    <input type="text" name="kategori_nama" id="kategori_nama" class="form-control @error('kategori_nama') is-invalid @enderror" value="{{ old('kategori_nama') }}" required>
-                    @error('kategori_nama')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                <div class="form-group row">
+                    <label class="col-2 control-label col-form-label">Nama Kategori</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" id="kategori_nama" name="kategori_nama"
+                            value="{{ old('kategori_nama') }}" required>
+                        @error('kategori_nama')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
-
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{{ url('/kategori') }}" class="btn btn-secondary">Kembali</a>
-                    <button type="submit" class="btn btn-success">Simpan</button>
+                <div class="form-group row">
+                    <label class="col-2 control-label col-form-label"></label>
+                    <div class="col-10">
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                        <a class="btn btn-sm btn-default ml-1" href="{{ url('kategori') }}">Kembali</a>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
 @endsection
+@push('css')
+@endpush
+@push('js')
+@endpush

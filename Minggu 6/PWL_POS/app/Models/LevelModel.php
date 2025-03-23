@@ -11,10 +11,8 @@ class LevelModel extends Model
 
     protected $table = 'm_level';
     protected $primaryKey = 'level_id';
-    public $timestamps = true;
-
     protected $fillable = [
-        'level_kode',  // Tambahkan ini untuk mass assignment
-        'level_nama'
+        'level_kode',
+        'level_nama',
     ];
 }

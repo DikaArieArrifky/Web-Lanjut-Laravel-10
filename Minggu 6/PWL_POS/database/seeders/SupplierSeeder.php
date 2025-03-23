@@ -2,42 +2,42 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class SupplierSeeder extends Seeder
 {
     /**
-     * Jalankan seeder.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        $data = [
+        DB::table('m_supplier')->insert([
             [
                 'supplier_kode' => 'SUP001',
-                'supplier_nama' => 'PT. Sumber Jaya',
-                'supplier_alamat' => 'Jl. Merdeka No. 1, Malang',
+                'supplier_nama' => 'PT Sumber Berkah',
+                'supplier_alamat' => 'Jl. Merdeka No. 10, Jakarta',
                 'supplier_telepon' => '081234567890',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'supplier_kode' => 'SUP002',
-                'supplier_nama' => 'CV. Anugerah Makmur',
-                'supplier_alamat' => 'Jl. Bunga Raya No. 15, Surabaya',
-                'supplier_telepon' => '081234567891',
+                'supplier_nama' => 'CV Maju Jaya',
+                'supplier_alamat' => 'Jl. Mawar No. 15, Bandung',
+                'supplier_telepon' => '082345678901',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'supplier_kode' => 'SUP003',
-                'supplier_nama' => 'UD. Sinar Terang',
-                'supplier_alamat' => 'Jl. Melati No. 7, Jakarta',
-                'supplier_telepon' => '081234567892',
+                'supplier_nama' => 'UD Sejahtera',
+                'supplier_alamat' => 'Jl. Melati No. 20, Surabaya',
+                'supplier_telepon' => '083456789012',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
-        ];
-        DB::table('m_supplier')->insert($data);
+        ]);
     }
 }
