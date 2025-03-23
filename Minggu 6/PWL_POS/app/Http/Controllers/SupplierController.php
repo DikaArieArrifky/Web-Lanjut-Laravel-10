@@ -5,7 +5,7 @@
  use Illuminate\Http\Request;
  use App\Models\SupplierModel;
  use Yajra\DataTables\Facades\DataTables;
- 
+ use Illuminate\Support\Facades\Validator; 
  class SupplierController extends Controller
  {
      public function index()
@@ -152,4 +152,112 @@
              return redirect('/supplier')->with('error', 'Data supplier gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
          }
      }
+     
+    public function create_ajax()
+    {
+        return view('supplier.create_ajax');
+    }
+    public function store_ajax(Request $request)
+    {
+        // cek apakah request berupa ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'supplier_kode' => 'required|string|max:10|unique:m_supplier,supplier_kode',
+                'supplier_nama' => 'required|string|max:100',
+                'supplier_alamat' => 'required|string|max:255',
+                'supplier_telp' => 'required|string|max:15',
+            ];
+
+            // use Illuminate\Support\Facades\Validator;
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false, // response status, false: error/gagal, true: berhasil
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(), // pesan error validasi
+                ]);
+            }
+
+            SupplierModel::create($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Data supplier berhasil disimpan'
+            ]);
+        }
+
+        redirect('/');
+    }
+    public function edit_ajax(string $id)
+    {
+        $supplier = SupplierModel::find($id);
+
+        return view('supplier.edit_ajax', ['supplier' => $supplier]);
+    }
+
+    public function update_ajax(Request $request, $id)
+    {
+        // cek apakah request dari ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'supplier_kode' => 'required|string|max:10|unique:m_supplier,supplier_kode,' . $id . ',supplier_id',
+                'supplier_nama' => 'required|string|max:100',
+                'supplier_alamat' => 'required|string|max:255',
+                'supplier_telp' => 'required|string|max:15',
+            ];
+            // use Illuminate\Support\Facades\Validator;
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false, // respon json, true: berhasil, false: gagal
+                    'message' => 'Validasi gagal.',
+                    'msgField' => $validator->errors() // menunjukkan field mana yang error
+                ]);
+            }
+            $check = SupplierModel::find($id);
+            if ($check) {
+                $check->update($request->all());
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diupdate'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+
+        redirect('/');
+    }
+
+    public function confirm_ajax(string $id)
+    {
+        $supplier = SupplierModel::find($id);
+
+        return view('supplier.confirm_ajax', ['supplier' => $supplier]);
+    }
+
+    public function delete_ajax(Request $request, $id)
+    {
+        // cek apakah request dari ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $supplier = SupplierModel::find($id);
+            if ($supplier) {
+                $supplier->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+
+        return redirect('/');
+    }
  }
