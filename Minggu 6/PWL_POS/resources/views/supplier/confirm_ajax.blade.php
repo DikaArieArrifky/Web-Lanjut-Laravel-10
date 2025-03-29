@@ -48,7 +48,7 @@
                     </tr>
                     <tr>
                         <th class="text-right col-3">Telepon :</th>
-                        <td class="col-9">{{ $supplier->supplier_telp }}</td>
+                        <td class="col-9">{{ $supplier->supplier_telepon }}</td>
                     </tr>
                 </table>
             </div>

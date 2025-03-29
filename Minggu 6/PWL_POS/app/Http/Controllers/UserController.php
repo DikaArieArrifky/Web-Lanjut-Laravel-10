@@ -49,7 +49,7 @@ class UserController extends Controller
                 //          Hapus
                 //      </button>
                 //  </form>';
-    
+
                 $btn = '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
@@ -270,6 +270,18 @@ class UserController extends Controller
         }
         return redirect('/user');
     }
+    public function show_ajax($id)
+{
+    $user = UserModel::with('level')->find($id);
+
+    if (!$user) {
+        return response()->json(['error' => 'Data tidak ditemukan'], 404);
+    }
+
+    return view('user.show_ajax', compact('user'));
+}
+
+
     public function confirm_ajax(string $id)
     {
         $user = UserModel::find($id);
@@ -277,7 +289,7 @@ class UserController extends Controller
         return view('user.confirm_ajax', ['user' => $user]);
     }
 
-    public function delete_ajax(request $request, $id)
+    public function delete_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $user = UserModel::find($id);

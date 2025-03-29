@@ -33,6 +33,7 @@
                     <label>Harga Beli</label>
                     <input type="number" name="harga_beli" id="harga_beli" class="form-control" required>
                     <small id="error-harga_beli" class="error-text form-text text-danger"></small>
+                    
                 </div>
                 <div class="form-group">
                     <label>Harga Jual</label>

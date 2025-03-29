@@ -138,7 +138,7 @@ confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>';
         ]);
         return redirect('/user')->with('success','Data user berhasil diubah');
     }
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $check = UserModel::find($id);
         if (!$check) { // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak 

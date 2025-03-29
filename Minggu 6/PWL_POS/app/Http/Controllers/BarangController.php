@@ -7,6 +7,7 @@ use App\Models\KategoriModel;
 use App\Models\BarangModel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+
 class BarangController extends Controller
 {
     public function index()
@@ -26,23 +27,46 @@ class BarangController extends Controller
         return view('barang.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'activeMenu' => $activeMenu]);
     }
 
+    // public function list(Request $request)
+    // {
+    //     $barang = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
+    //         ->with('kategori');
+
+    //     if ($request->kategori_id) {
+    //         $barangs->where('kategori_id', $request->kategori_id);
+    //     }
+
+    //     return DataTables::of($barangs)
+    //         ->addIndexColumn()
+    //         ->addColumn('aksi', function ($barang) {
+    //             $btn = '<a href="' . url('/barang/' . $barang->barang_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+    //             $btn .= '<a href="' . url('/barang/' . $barang->barang_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+    //             $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->barang_id) . '">' .
+    //                 csrf_field() . method_field('DELETE') .
+    //                 '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+    //             return $btn;
+    //         })
+    //         ->rawColumns(['aksi'])
+    //         ->make(true);
+    // }
+
+    
+    //modif untuk ajax 
     public function list(Request $request)
     {
-        $barangs = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
-            ->with('kategori');
+        $barang = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
+                 ->with('kategori');
 
-        if ($request->kategori_id) {
-            $barangs->where('kategori_id', $request->kategori_id);
+        if ($request->barang_kode) {
+            $barang->where('barang_kode', $request->barang_kode);
         }
 
-        return DataTables::of($barangs)
+        return DataTables::of($barang)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barang) {
-                $btn = '<a href="' . url('/barang/' . $barang->barang_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/barang/' . $barang->barang_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->barang_id) . '">' .
-                    csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -188,7 +212,17 @@ class BarangController extends Controller
         redirect('/');
     }
 
+    public function show_ajax($id){
+        $barang = BarangModel::find($id);
+        if(!$barang){
+            return response()->json([
+                'error' => 'Data tidak ditemukan',
+                'message'=> 'Data tidak ditemukan'
+            ],404);
+        }
 
+        return view('barang.show_ajax',compact('barang'));
+    }
     public function edit_ajax(string $id)
     {
         $barang = BarangModel::find($id);
@@ -264,4 +298,3 @@ class BarangController extends Controller
         return redirect('/');
     }
 }
-

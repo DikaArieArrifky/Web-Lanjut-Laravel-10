@@ -66,7 +66,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu ==
+                <a href="{{ url('/belum ada') }}" class="nav-link {{ ($activeMenu ==
     'penjualan') ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-cash-register"></i>
                     <p>Transaksi Penjualan</p>

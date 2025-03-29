@@ -42,8 +42,8 @@
                 </div>
                 <div class="form-group">
                     <label>Telepon Supplier</label>
-                    <input value="{{ $supplier->supplier_telp }}" type="text" name="supplier_telp" id="supplier_telp" class="form-control" required>
-                    <small id="error-supplier_telp" class="error-text form-text text-danger"></small>
+                    <input value="{{ $supplier->supplier_telepon }}" type="text" name="supplier_telepon" id="supplier_telepon" class="form-control" required>
+                    <small id="error-supplier_telepon" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -73,7 +73,7 @@
                     minlength: 5,
                     maxlength: 255
                 },
-                supplier_telp: {
+                supplier_telepon: {
                     required: true,
                     digits: true,
                     minlength: 8,
