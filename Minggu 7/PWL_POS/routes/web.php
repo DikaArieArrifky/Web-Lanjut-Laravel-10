@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
+use Monolog\Level;
 
 Route::pattern('id', '[0-9]+'); //ketika ada parameter id , maka harus berupa angka
 
@@ -18,9 +19,22 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function () { // artinya semua route di dalam group ini harus login dulu
     //masukkan semua route yang membutuhkan auth di sini
-    // Welcome
+    //route level
+    Route::get('/', [WelcomeController::class, 'index']);
 
+    //artinya semua route di dalam group ini harus punya role ADM (Administrator)
+    Route::middleware(['authorize:ADM'])->group(function () {
+        Route::get('/level', [LevelController::class, 'index']);
+        Route::post('/level/list', [LevelController::class, 'list']); //untuk list json datatables
+        Route::get('/level/create', [LevelController::class, 'create']);
+        Route::post('/level', [LevelController::class, 'store']);
+        Route::get('/level/{id}/edit', [LevelController::class, 'edit']); //untuk form tampilan edit
+        Route::put('/level/{id}', [LevelController::class, 'update']); //untuk proses update data
+        Route::delete('/level/{id}', [LevelController::class, 'destroy']); //untuk proses delete data
+
+    });
 });
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,10 +57,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
 // Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
 // Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
 
-Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // User
 Route::group(['prefix' => 'user'], function () {

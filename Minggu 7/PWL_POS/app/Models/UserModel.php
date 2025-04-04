@@ -23,7 +23,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable; //implementasi class aut
 
 //jobsheet 7 
 class UserModel extends Authenticatable
-{
+{   
+    //praktikum 1 Implementasi Authentication 
     use HasFactory;
 
     protected $table = 'm_user';
@@ -38,5 +39,16 @@ class UserModel extends Authenticatable
     public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
+
+    //praktikum 2 Implementasi Authorizaton di Laravel dengan Middleware
+    public function getRoleName(): string
+    {
+        return $this->level->level_nama;
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->level->level_kode == $role;
     }
 }
