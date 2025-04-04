@@ -23,16 +23,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable; //implementasi class aut
 
 //jobsheet 7 
 class UserModel extends Authenticatable
-{   
+{
     //praktikum 1 Implementasi Authentication 
     use HasFactory;
 
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['username','password','nama','level_id', 'created_at', 'updated_at'];
+    protected $fillable = ['username', 'password', 'nama', 'level_id', 'created_at', 'updated_at'];
 
-    protected $hidden = ['password','']; // jangan ditampilkan saat select
+    protected $hidden = ['password', '']; // jangan ditampilkan saat select
 
     protected $casts = ['password' => 'hashed']; //casting password agar otomatis di hash
 
@@ -50,5 +50,12 @@ class UserModel extends Authenticatable
     public function hasRole($role): bool
     {
         return $this->level->level_kode == $role;
+    }
+
+    //Praktikum 3 – Implementasi Multi-Level Authorizaton di Laravel dengan Middleware
+
+    public function getRole()
+    {
+        return $this->level->level_kode;
     }
 }
