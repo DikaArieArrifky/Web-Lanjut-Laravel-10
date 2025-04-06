@@ -50,18 +50,18 @@ class BarangController extends Controller
     //         ->make(true);
     // }
 
-    
+        
     //modif untuk ajax 
     public function list(Request $request)
     {
-        $barang = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
+        $barangs = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'kategori_id', 'harga_beli', 'harga_jual')
                  ->with('kategori');
 
         if ($request->barang_kode) {
-            $barang->where('barang_kode', $request->barang_kode);
+            $barangs->where('barang_kode', $request->barang_kode);
         }
 
-        return DataTables::of($barang)
+        return DataTables::of($barangs)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barang) {
                 $btn = '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
