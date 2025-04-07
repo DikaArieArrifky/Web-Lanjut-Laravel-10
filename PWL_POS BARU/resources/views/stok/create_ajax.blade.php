@@ -1,6 +1,6 @@
 <form action="{{ url('/stok/ajax') }}" method="POST" id="form-tambah-stok">
     @csrf
-    <div id="modal-stok" class="modal-dialog modal-md" role="document">
+    <div id="modal-stok" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Data Stok</h5>
@@ -57,6 +57,7 @@
             rules: {
                 barang_id: { required: true },
                 stok_tanggal: { required: true },
+                user_id: { required: true },
                 stok_jumlah: { required: true, min: 1 },
             },
             submitHandler: function(form) {

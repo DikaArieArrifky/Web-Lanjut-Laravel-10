@@ -16,7 +16,7 @@ class PenjualanSeeder extends Seeder
         $data = [
             [
                 'user_id' => 1,
-                'pembeli' => 'Gilang Purnomo',
+                'pembeli' => 'Arhan Pratama',
                 'penjualan_kode' => 'TRX001',
                 'tanggal_penjualan' => date('Y-m-d H:i:s', strtotime('2025-02-26')),
             ],

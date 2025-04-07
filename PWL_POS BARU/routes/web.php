@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\StokController;
 use Monolog\Level;
 
@@ -22,10 +23,11 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware(['auth'])->group(function () { // artinya semua route di dalam group ini harus login dulu
     //masukkan semua route yang membutuhkan auth di sini
     //route level
-    Route::get('/', [WelcomeController::class, 'index']);
-
+    
     //artinya semua route di dalam group ini harus punya role ADM (Administrator)
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
+        Route::get('/', [WelcomeController::class, 'index']);
+        
         //praktikum 2
 
         // Route::get('/level', [LevelController::class, 'index']);
@@ -187,4 +189,16 @@ Route::group(['prefix' => 'stok'], function () {
     Route::put('/{id}/update_ajax', [StokController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [StokController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [StokController::class, 'delete_ajax']);
+});
+
+// Penjualan
+Route::group(['prefix' => 'penjualan'], function () {
+    Route::get('/', [PenjualanController::class, 'index']);
+    Route::post('/list', [PenjualanController::class, 'list']);
+    Route::get('/create', [PenjualanController::class, 'create']);
+    Route::post('/', [PenjualanController::class, 'store']);
+    Route::get('/{id}/show', [PenjualanController::class, 'show']);
+    Route::get('/{id}/edit', [PenjualanController::class, 'edit']);
+    Route::put('/{id}/update', [PenjualanController::class, 'update']);
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
 });

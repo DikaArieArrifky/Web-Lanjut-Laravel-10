@@ -52,7 +52,7 @@
                         </tr>
                         <tr>
                             <th class="text-right col-3">Stok:</th>
-                            <td class="col-9">{{ $barang->stok }}</td>
+                            <td class="col-9">{{ $barang->stok_jumlah }}</td>
                         </tr>
                     </table>
                 </div>

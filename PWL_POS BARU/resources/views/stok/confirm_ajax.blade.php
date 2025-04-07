@@ -44,11 +44,11 @@
                         </tr>
                         <tr>
                             <th class="text-right col-3">Jumlah Stok:</th>
-                            <td class="col-9">{{ $stok->jumlah }}</td>
+                            <td class="col-9">{{ $stok->stok_jumlah }}</td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Tanggal Masuk:</th>
-                            <td class="col-9">{{ $stok->tanggal_masuk }}</td>
+                            <td class="col-9">{{ $stok->stok_tanggal }}</td>
                         </tr>
                     </table>
                 </div>

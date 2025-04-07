@@ -37,14 +37,29 @@
                     </select>
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
                 </div>
+
+                <div class="form-group">
+                     <label>User</label>
+                     <div class="col-10">
+                         <select class="form-control" id="user_id" name="user_id" required>
+                             <option value="">- Pilih User -</option>
+                             @foreach($user as $item)
+                                 <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                             @endforeach
+                         </select>
+                         @error('user_id')
+                             <small class="text-danger">{{ $message }}</small>
+                         @enderror
+                     </div>
+                 </div>
                 <div class="form-group">
                     <label>Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $stok->jumlah }}" required>
+                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $stok->stok_jumlah }}" required>
                     <small id="error-jumlah" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Tanggal Masuk</label>
-                    <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="{{ $stok->tanggal_masuk }}" required>
+                    <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="{{ $stok->stok_tanggal }}" required>
                     <small id="error-tanggal_masuk" class="error-text form-text text-danger"></small>
                 </div>
             </div>
@@ -61,8 +76,10 @@
         $("#form-edit-stok").validate({
             rules: {
                 barang_id: { required: true },
-                jumlah: { required: true, min: 1 },
+                user_id: { required: true },    
+                stok_jumlah: { required: true, min: 1 },
                 tanggal_masuk: { required: true, date: true }
+
             },
             submitHandler: function (form) {
                 $.ajax({
