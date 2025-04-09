@@ -43,13 +43,19 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         // Barang
         Route::get('/', [BarangController::class, 'index']);
         Route::post('/list', [BarangController::class, 'list']);
-        Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
-        Route::post('/ajax', [BarangController::class, 'store_ajax']);
-        Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
-        Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
-        Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
+        Route::get('/create_ajax', [BarangController::class, 'create_ajax']); //ajax form create
+        Route::post('/ajax', [BarangController::class, 'store_ajax']); // ajax store
+        Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']); // ajax show
+        Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); //ajax form edit
+        Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // ajax update
+        Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // ajax form confirm
+        Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);// ajax delete
+
+        
+        Route::get('/barang/import', [BarangController::class,'import']); // ajax form upload excel
+        Route::post('/barang/import_ajax', [BarangController::class,'import_ajax']); // ajax import excel
+        Route::get('/barang/export_excel', [BarangController::class,'export_excel']); // export excel
+        Route::get('/barang/export_pdf', [BarangController::class,'export_pdf']); // export pdf
 
 
 
