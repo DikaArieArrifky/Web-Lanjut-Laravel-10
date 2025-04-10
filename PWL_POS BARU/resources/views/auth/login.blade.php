@@ -54,9 +54,13 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                         </div>
                         <!-- /.col -->
+                    </div>
+                    <div class="text-center mt-4">
+                    <a href="{{ url('register') }}" class="btn btn-primary btn-block">Daftar Akun</a>
+                        
                     </div>
                 </form>
             </div>
@@ -101,7 +105,7 @@
                 },
                 submitHandler: function(form) { // ketika valid, maka bagian yg akan dijalankan
                     let formData = $(form).serialize(); // Ambil data form
-                    
+
                     $.ajax({
                         url: form.action,
                         type: form.method,
