@@ -1,12 +1,14 @@
 @extends('layouts.template')
+
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <a class="btn btn-sm btn-primary mt-1" href="{{ url('penjualan/create') }}">Tambah</a>
+            <button onclick="modalAction('{{ url('penjualan/create_ajax') }}')" class="btn btn-sm btn-primary mt-1">Tambah Penjualan</button>
         </div>
     </div>
+
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -14,46 +16,83 @@
     <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <div class="card-body table-responsive">
-        <table class="table table-bordered table-striped table-hover table-sm">
+    <div class="row mx-3 mt-2">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <label class="col-1 control-label col-form-label">Filter:</label>
+                <div class="col-4">
+                    <select class="form-control" id="user_id" name="user_id">
+                        <option value="">- Semua -</option>
+                        @foreach ($user as $item)
+                            <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                        @endforeach
+                    </select>
+                    <small class="form-text text-muted">Nama User</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_penjualan">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Kode Penjualan</th>
                     <th>Tanggal</th>
-                    <th>Nama Pembeli</th>
+                    <th>Pembeli</th>
                     <th>User</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($penjualan as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->penjualan_kode }}</td>
-                    <td>{{ $item->penjualan_tanggal }}</td>
-                    <td>{{ $item->pembeli }}</td>
-                    <td>{{ $item->user->nama ?? '-' }}</td>
-                    <td>
-                        <a href="{{ url('penjualan/' . $item->penjualan_id . '/show') }}" class="btn btn-info btn-sm">Detail</a>
-
-                        <a href="{{ url('penjualan/' . $item->penjualan_id . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ url('penjualan/' . $item->penjualan_id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin hapus?')">Hapus</button>
-                        </form>
-                    </td>
-
-                </tr>
-                @endforeach
-                @if ($penjualan->count() == 0)
-                <tr>
-                    <td colspan="6" class="text-center">Tidak ada penjualan</td>
-                </tr>
-                @endif
-            </tbody>
         </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true"></div>
 @endsection
+
+@push('js')
+<script>
+    function modalAction(url = '') {
+        $('#myModal').load(url, function() {
+            $('#myModal').modal('show');
+        });
+    }
+
+    var dataPenjualan;
+
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        dataPenjualan = $('#table_penjualan').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ url('penjualan/list') }}",
+                type: "POST",
+                data: function(d) {
+                    d.user_id = $('#user_id').val();
+                }
+            },
+            columns: [
+                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                { data: "penjualan_kode", className: "", orderable: true, searchable: true },
+                { data: "penjualan_tanggal", className: "text-center", orderable: true, searchable: false },
+                { data: "pembeli", className: "", orderable: true, searchable: true },
+                { data: "user_id", className: "", orderable: false, searchable: false },
+                { data: "aksi", className: "text", orderable: false, searchable: false }
+            ]
+        });
+
+        $('#user_id').on('change', function() {
+            dataPenjualan.ajax.reload();
+        });
+    });
+</script>
+@endpush

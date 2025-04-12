@@ -1,4 +1,4 @@
-@empty($barang)
+@empty($penjualan)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,20 +10,20 @@
             <div class="modal-body">
                 <div class="alert alert-danger">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
-                    Data yang Anda cari tidak ditemukan.
+                    Data penjualan tidak ditemukan.
                 </div>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/barang/' . $barang->barang_id . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/penjualan/' . $penjualan->penjualan_id . '/delete_ajax') }}" method="POST" id="form-delete-penjualan">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Barang</h5>
+                    <h5 class="modal-title">Hapus Data Penjualan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -31,24 +31,24 @@
                 <div class="modal-body">
                     <div class="alert alert-warning">
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Konfirmasi!</h5>
-                        Apakah Anda yakin ingin menghapus data barang berikut?
+                        Apakah Anda yakin ingin menghapus data penjualan berikut?
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Kode Barang:</th>
-                            <td class="col-9">{{ $barang->barang_kode }}</td>
+                            <th class="text-right col-3">Kode Penjualan:</th>
+                            <td class="col-9">{{ $penjualan->penjualan_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Barang:</th>
-                            <td class="col-9">{{ $barang->barang_nama }}</td>
+                            <th class="text-right col-3">Tanggal:</th>
+                            <td class="col-9">{{ $penjualan->penjualan_tanggal }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Kategori:</th>
-                            <td class="col-9">{{ $barang->kategori->kategori_nama ?? '-' }}</td>
+                            <th class="text-right col-3">Pembeli:</th>
+                            <td class="col-9">{{ $penjualan->pembeli }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Harga Jual:</th>
-                            <td class="col-9">Rp {{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
+                            <th class="text-right col-3">User:</th>
+                            <td class="col-9">{{ $penjualan->user->nama ?? '-' }}</td>
                         </tr>
                     </table>
                 </div>
@@ -62,7 +62,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#form-delete").validate({
+            $("#form-delete-penjualan").validate({
                 rules: {},
                 submitHandler: function (form) {
                     $.ajax({
@@ -71,21 +71,21 @@
                         data: $(form).serialize(),
                         success: function (response) {
                             if (response.status) {
-                                $('#myModal').modal('hide');
+                                $('#myModal').modal('hide'); // pastikan ID modalnya benar
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataBarang.ajax.reload();
+                                dataPenjualan.ajax.reload(); // pastikan ini adalah instance DataTable
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField, function (prefix, val) {
+                                $.each(response.msgField || {}, function (prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Terjadi Kesalahan',
+                                    title: 'Gagal',
                                     text: response.message
                                 });
                             }
@@ -98,10 +98,10 @@
                     error.addClass('invalid-feedback');
                     element.closest('.form-group').append(error);
                 },
-                highlight: function (element, errorClass, validClass) {
+                highlight: function (element) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function (element, errorClass, validClass) {
+                unhighlight: function (element) {
                     $(element).removeClass('is-invalid');
                 }
             });

@@ -82,106 +82,6 @@ class BarangController extends Controller
             ->make(true);
     }
 
-    public function create()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Barang',
-            'list' => ['Home', 'Barang', 'Tambah Barang']
-        ];
-
-        $page = (object) [
-            'title' => 'Tambah Barang'
-        ];
-
-        $activeMenu = 'barang';
-        $kategori = KategoriModel::all();
-
-        return view('barang.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'activeMenu' => $activeMenu]);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'kategori_id' => 'required|integer|exists:m_kategori,kategori_id',
-            'barang_kode' => 'required|string|max:10|unique:m_barang,barang_kode',
-            'barang_nama' => 'required|string|max:100',
-            'harga_beli' => 'required|integer',
-            'harga_jual' => 'required|integer',
-        ]);
-
-        BarangModel::create([
-            'kategori_id' => $request->kategori_id,
-            'barang_kode' => $request->barang_kode,
-            'barang_nama' => $request->barang_nama,
-            'harga_beli' => $request->harga_beli,
-            'harga_jual' => $request->harga_jual,
-        ]);
-
-        return redirect('/barang')->with('success', 'Data barang berhasil disimpan');
-    }
-
-    public function show($id)
-    {
-        $breadcrumb = (object) [
-            'title' => 'Detail Barang',
-            'list' => ['Home', 'Barang', 'Detail']
-        ];
-
-        $page = (object) [
-            'title' => 'Detail Data Barang'
-        ];
-
-        $barang = BarangModel::with('kategori')->find($id);
-
-        $activeMenu = 'barang';
-
-        return view('barang.show', compact('breadcrumb', 'page', 'barang', 'activeMenu'));
-    }
-
-    public function edit($id)
-    {
-        $breadcrumb = (object) [
-            'title' => 'Edit Barang',
-            'list' => ['Home', 'Barang', 'Edit']
-        ];
-
-        $page = (object) [
-            'title' => 'Edit Data Barang'
-        ];
-
-        $barang = BarangModel::find($id);
-        $kategori = KategoriModel::all();
-
-        $activeMenu = 'barang';
-
-        return view('barang.edit', compact('breadcrumb', 'page', 'barang', 'kategori', 'activeMenu'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'kategori_id' => 'required',
-            'barang_kode' => 'required|unique:m_barang,barang_kode,' . $id . ',barang_id',
-            'barang_nama' => 'required',
-            'harga_beli' => 'required|numeric',
-            'harga_jual' => 'required|numeric',
-        ]);
-
-        $barang = BarangModel::find($id);
-        $barang->update($request->all());
-
-        return redirect('barang')->with('success', 'Barang berhasil diperbarui');
-    }
-
-    public function destroy($id)
-    {
-        $barang = BarangModel::find($id);
-        if ($barang) {
-            $barang->delete();
-            return redirect('barang')->with('success', 'Barang berhasil dihapus');
-        }
-        return redirect('barang')->with('error', 'Barang tidak ditemukan');
-    }
     public function create_ajax()
     {
         $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
@@ -279,7 +179,7 @@ class BarangController extends Controller
         }
         return redirect('/');
     }
-    public function confirm_ajax($id)
+    public function confirm_ajax(string $id)
     {
         $barang = BarangModel::find($id);
         return view('barang.confirm_ajax', ['barang' => $barang]);

@@ -12,7 +12,7 @@
             <a href="{{ url('/barang/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i>Export Barang</a>
             <!-- praktikum 3 -->
             <a href="{{ url('/barang/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Barang</a>
-            <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">Tambah Data (Ajax)</button>
+            <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-primary">Tambah Data Barang</button>
         </div>
     </div>
     <div class="card-body">
