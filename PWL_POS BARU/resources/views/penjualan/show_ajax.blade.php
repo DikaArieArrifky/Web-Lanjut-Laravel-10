@@ -24,14 +24,6 @@
                     <th>User</th>
                     <td>{{ $penjualan->user->nama ?? '-' }}</td>
                 </tr>
-                <tr>
-                    <th>Dibuat Pada</th>
-                    <td>{{ $penjualan->created_at->format('d-m-Y H:i') }}</td>
-                </tr>
-                <tr>
-                    <th>Diperbarui Pada</th>
-                    <td>{{ $penjualan->updated_at->format('d-m-Y H:i') }}</td>
-                </tr>
             </table>
         </div>
         <div class="modal-footer">

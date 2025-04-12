@@ -1,6 +1,6 @@
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header bg-primary">
+        <div class="modal-header">
             <h5 class="modal-title">Detail Pengguna</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -20,35 +20,39 @@
                 alt="Foto Profil"
                 class="rounded-circle mb-3"
                 width="150" height="150"
-                style="object-fit: cover; border: 4px solid rgb(42, 130, 224);">
+                style="object-fit: cover">
             @else
             <div class="text-muted mb-3">Tidak ada foto</div>
             @endif
 
 
             {{-- Tabel Info User --}}
-            <table class="table table-bordered table-striped table-hover table-sm text-left">
-                <tr>
-                    <th width="30%">ID</th>
-                    <td>{{ $user->user_id }}</td>
-                </tr>
-                <tr>
-                    <th>Level</th>
-                    <td>{{ $user->level->level_nama }}</td>
-                </tr>
-                <tr>
-                    <th>Username</th>
-                    <td>{{ $user->username }}</td>
-                </tr>
-                <tr>
-                    <th>Nama</th>
-                    <td>{{ $user->nama }}</td>
-                </tr>
-                <tr>
-                    <th>Password</th>
-                    <td>********</td>
-                </tr>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="width: 30%">ID</th>
+                        <td>{{ $user->user_id }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%">Level</th>
+                        <td>{{ $user->level->level_nama }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%">Username</th>
+                        <td>{{ $user->username }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%">Nama</th>
+                        <td>{{ $user->nama }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%">Password</th>
+                        <td>********</td>
+                    </tr>
+                </table>
+            </div>
+
+
             @endif
         </div>
         <div class="modal-footer">
