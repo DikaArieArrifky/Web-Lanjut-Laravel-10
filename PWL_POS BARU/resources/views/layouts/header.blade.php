@@ -16,34 +16,6 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#" role="button">
-                @php
-                $foto = Auth::user()->foto ?? null;
-                @endphp
-
-                <img src="{{ $foto ? asset('uploads/profile/' . $foto) : asset('images/default.jpg') }}"
-                    alt="User Image"
-                    class="img-circle elevation-2"
-                    style="width: 30px; height: 30px; object-fit: cover;">
-
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <span class="dropdown-header">Akun</span>
-                <div class="dropdown-divider"></div>
-
-                <a href="{{ url('/profile') }}" class="dropdown-item">
-                    <i class="fas fa-user mr-2"></i> Profile
-                </a>
-
-                <a href="{{ url('/settings') }}" class="dropdown-item">
-                    <i class="fas fa-cog mr-2"></i> Pengaturan
-                </a>
-
-                <div class="dropdown-divider"></div>
-            </div>
-        </li>
-
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -142,6 +114,29 @@
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
+        </li>
+        <!-- Foto profile -->
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+                @php
+                $foto = Auth::user()->foto ?? null;
+                $nama = Auth::user()->nama ?? 'Nama tidak tersedia'; // Ambil nama pengguna
+                $levelNama = Auth::user()->level->level_nama ?? 'Level tidak tersedia'; // Ambil level_nama pengguna
+                @endphp
+
+
+                <img src="{{ $foto ? asset('uploads/profile/' . $foto) : asset('uploads/profile/') }}"
+                    alt="User Image"
+                    class="img-circle elevation-2"
+                    style="width: 30px; height: 30px;">
+
+                <!-- Menampilkan nama dan level di samping foto profil -->
+                <span class="ml-2" style="vertical-align: center; font-size: 14px;">
+                    <strong>{{ $nama }}</strong> /
+                    <small class="text-muted">{{ $levelNama }}</small>
+                </span>
+            </a>
+            </div>
         </li>
     </ul>
 </nav>
