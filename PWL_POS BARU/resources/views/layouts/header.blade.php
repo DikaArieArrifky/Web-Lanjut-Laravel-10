@@ -16,27 +16,34 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-        <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+                @php
+                $foto = Auth::user()->foto ?? null;
+                @endphp
+
+                <img src="{{ $foto ? asset('uploads/profile/' . $foto) : asset('images/default.jpg') }}"
+                    alt="User Image"
+                    class="img-circle elevation-2"
+                    style="width: 30px; height: 30px; object-fit: cover;">
+
             </a>
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="dropdown-menu dropdown-menu-right">
+                <span class="dropdown-header">Akun</span>
+                <div class="dropdown-divider"></div>
+
+                <a href="{{ url('/profile') }}" class="dropdown-item">
+                    <i class="fas fa-user mr-2"></i> Profile
+                </a>
+
+                <a href="{{ url('/settings') }}" class="dropdown-item">
+                    <i class="fas fa-cog mr-2"></i> Pengaturan
+                </a>
+
+                <div class="dropdown-divider"></div>
             </div>
         </li>
+
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">

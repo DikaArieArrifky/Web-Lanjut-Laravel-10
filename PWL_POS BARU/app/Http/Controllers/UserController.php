@@ -7,7 +7,9 @@ use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+
 
 class UserController extends Controller
 {
@@ -31,7 +33,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
+        $users = UserModel::select('user_id', 'username', 'nama', 'level_id', 'foto')
             ->with('level');
         // Filter fata user by level_id
         if ($request->level_id) {
@@ -59,7 +61,7 @@ class UserController extends Controller
             ->make(true);
     }
 
-   
+
     public function create_ajax()
     {
         $level = LevelModel::select('level_id', 'level_nama')->get();
@@ -68,34 +70,57 @@ class UserController extends Controller
     }
 
     public function store_ajax(Request $request)
-    {
-        // cek apakah request berupa ajax
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'level_id' => 'required|integer',
-                'username' => 'required|string|min:3|unique:m_user,username',
-                'nama' => 'required|string|max:100',
-                'password' => 'required|min:5'
-            ];
+{
+    // cek apakah request berupa ajax
+    if ($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'level_id' => 'required|integer',
+            'username' => 'required|string|min:3|unique:m_user,username',
+            'nama' => 'required|string|max:100',
+            'password' => 'required|min:5',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048' // validasi yang lebih fleksibel
+        ];
 
-            $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
-                ]);
-            }
-
-            UserModel::create($request->all());
+        if ($validator->fails()) {
             return response()->json([
-                'status' => true,
-                'message' => 'Data user berhasil disimpan'
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'msgField' => $validator->errors(),
             ]);
         }
-        redirect('/');
+
+        // Buat objek user baru
+        $user = new UserModel();
+        $user->level_id = $request->level_id;
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        $user->password = $request->password;
+
+        // Cek dan simpan file foto jika ada
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+
+            $filename = 'profile_' . time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('uploads/profile'), $filename);
+
+            // Simpan nama file ke kolom foto
+            $user->foto = $filename;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data user berhasil disimpan'
+        ]);
     }
+
+    return redirect('/');
+}
+
 
     public function edit_ajax($id)
     {
@@ -113,7 +138,8 @@ class UserController extends Controller
                 'level_id' => 'required|integer',
                 'username' => 'required|max:20|unique:m_user,username,' . $id . ',user_id',
                 'nama' => 'required|max:100',
-                'password' => 'nullable|min:5|max:20'
+                'password' => 'nullable|min:5|max:20',
+                'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048' // validasi foto
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -125,11 +151,24 @@ class UserController extends Controller
                     'msgField' => $validator->errors()
                 ]);
             }
-            $check = UserModel::find($id);  
+            $check = UserModel::find($id);
             if ($check) {
+
                 if (!$request->filled('password')) {
                     $request->request->remove('password');
                 }
+
+                if ($request->hasFile('foto')) {
+                    $file = $request->file('foto');
+    
+                    // Buat nama file unik
+                    $filename = 'profile_' . time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+    
+                    // Simpan ke folder public/uploads/profile/
+                    $file->move(public_path('uploads/profile'), $filename);
+    
+                    // Simpan nama file ke kolom foto
+                    $check->foto = $filename;}
 
                 $check->update($request->all());
                 return response()->json([
@@ -146,15 +185,15 @@ class UserController extends Controller
         return redirect('/user');
     }
     public function show_ajax($id)
-{
-    $user = UserModel::with('level')->find($id);
+    {
+        $user = UserModel::with('level')->find($id);
 
-    if (!$user) {
-        return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        if (!$user) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+
+        return view('user.show_ajax', compact('user'));
     }
-
-    return view('user.show_ajax', compact('user'));
-}
 
 
     public function confirm_ajax(string $id)
@@ -169,6 +208,12 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $user = UserModel::find($id);
             if ($user) {
+
+                // Hapus file foto jika ada
+                if ($user->foto && file_exists(public_path('image/' . $user->foto))) {
+                    unlink(public_path('image/' . $user->foto)); // Hapus file foto
+                }
+
                 $user->delete();
                 return response()->json([
                     'status' => true,
