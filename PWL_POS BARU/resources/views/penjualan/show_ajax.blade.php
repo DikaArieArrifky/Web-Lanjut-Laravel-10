@@ -24,6 +24,33 @@
                     <th>User</th>
                     <td>{{ $penjualan->user->nama ?? '-' }}</td>
                 </tr>
+                <tr>
+                    <th>Detail Barang</th>
+                    <td>
+                        <table class="table table-sm table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Total Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($penjualan->penjualan_detail as $detail)
+                                <tr>
+                                    <td>{{ $detail->barang->barang_nama ?? '-' }}</td>
+                                    <td>{{ $detail->jumlah }}</td>
+                                    <td>Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+
             </table>
         </div>
         <div class="modal-footer">

@@ -14,25 +14,18 @@
                     <select name="barang_id" id="barang_id" class="form-control" required>
                         <option value="">- Pilih Barang -</option>
                         @foreach ($barang as $item)
-                            <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
+                        <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
                         @endforeach
                     </select>
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                     <label>User</label>
-                     <div class="col-10">
-                         <select class="form-control" id="user_id" name="user_id" required>
-                             <option value="">- Pilih User -</option>
-                             @foreach($user as $item)
-                                 <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
-                             @endforeach
-                         </select>
-                         @error('user_id')
-                             <small class="text-danger">{{ $message }}</small>
-                         @enderror
-                     </div>
-                 </div>
+                    <div class="form-group">
+                        <label>Nama User</label>
+                        <input type="text" class="form-control" value="{{ Auth::user()->nama }}" readonly>
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Tanggal Stok</label>
                     <input type="date" name="stok_tanggal" id="stok_tanggal" class="form-control" required>
@@ -55,10 +48,19 @@
     $(document).ready(function() {
         $("#form-tambah-stok").validate({
             rules: {
-                barang_id: { required: true },
-                stok_tanggal: { required: true },
-                user_id: { required: true },
-                stok_jumlah: { required: true, min: 1 },
+                barang_id: {
+                    required: true
+                },
+                stok_tanggal: {
+                    required: true
+                },
+                user_id: {
+                    required: true
+                },
+                stok_jumlah: {
+                    required: true,
+                    min: 1
+                },
             },
             submitHandler: function(form) {
                 $.ajax({
@@ -73,7 +75,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataStok.ajax.reload(); // pastikan dataStok = DataTable stok
+                            dataStok.ajax.reload(); 
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {
@@ -102,4 +104,4 @@
             }
         });
     });
-</script>
+</script>   

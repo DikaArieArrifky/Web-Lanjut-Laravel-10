@@ -18,16 +18,6 @@
     <div class="row mx-3 mt-2">
         <div class="col-md-12">
             <div class="form-group row">
-                <label class="col-1 control-label col-form-label">Filter:</label>
-                <div class="col-4">
-                    <select class="form-control" id="barang_id" name="barang_id">
-                        <option value="">- Semua -</option>
-                        @foreach ($barang as $item)
-                        <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
-                        @endforeach
-                    </select>
-                    <small class="form-text text-muted">Nama Barang</small>
-                </div>
             </div>
         </div>
     </div>
@@ -71,13 +61,42 @@
                     d.barang_id = $('#barang_id').val();
                 }
             },
-            columns: [
-                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "barang.barang_kode", className: "", orderable: true, searchable: false },
-                { data: "barang.barang_nama", className: "", orderable: true, searchable: false },
-                { data: "jumlah", className: "text-center", orderable: true, searchable: false },
-                { data: "tanggal_masuk", className: "text-center", orderable: true, searchable: false },
-                { data: "aksi", className: "", orderable: false, searchable: false }
+            columns: [{
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: "barang.barang_kode",
+                    className: "",
+                    orderable: true,
+                    searchable: false
+                },
+                {
+                    data: "barang.barang_nama",
+                    className: "",
+                    orderable: true,
+                    searchable: false
+                },
+                {
+                    data: "jumlah",
+                    className: "text-center",
+                    orderable: true,
+                    searchable: false
+                },
+                {
+                    data: "tanggal_masuk",
+                    className: "text-center",
+                    orderable: true,
+                    searchable: false
+                },
+                {
+                    data: "aksi",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }
             ]
         });
 
