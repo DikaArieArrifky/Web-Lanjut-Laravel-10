@@ -89,22 +89,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/supplier/{id}/update_ajax', [SupplierController::class, 'update_ajax']);
         Route::get('/supplier/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
         Route::delete('/supplier/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
-
-        //Barang        
-        Route::get('/barang', [BarangController::class, 'index']);
-        Route::post('/barang/list', [BarangController::class, 'list']);
-        Route::get('/barang/create_ajax', [BarangController::class, 'create_ajax']);
-        Route::post('/barang/ajax', [BarangController::class, 'store_ajax']);
-        Route::get('/barang/{id}/show_ajax', [BarangController::class, 'show_ajax']);
-        Route::get('/barang/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
-        Route::put('/barang/{id}/update_ajax', [BarangController::class, 'update_ajax']);
-        Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
-        Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
-
-        Route::get('/barang/import', [BarangController::class, 'import']); // ajax form upload excel
-        Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); // ajax import excel
-        Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); // export excel
-        Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); // export pdf
     });
 
     //yang bisa diakses oleh administrator, manager, staff
@@ -130,6 +114,22 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/penjualan/{id}/update_ajax', [PenjualanController::class, 'update_ajax']);
         Route::get('/penjualan/{id}/delete_ajax', [PenjualanController::class, 'confirm_ajax']);
         Route::delete('/penjualan/{id}/delete_ajax', [PenjualanController::class, 'delete_ajax']);
+
+        //Barang        
+        Route::get('/barang', [BarangController::class, 'index']);
+        Route::post('/barang/list', [BarangController::class, 'list']);
+        Route::get('/barang/create_ajax', [BarangController::class, 'create_ajax']);
+        Route::post('/barang/ajax', [BarangController::class, 'store_ajax']);
+        Route::get('/barang/{id}/show_ajax', [BarangController::class, 'show_ajax']);
+        Route::get('/barang/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
+        Route::put('/barang/{id}/update_ajax', [BarangController::class, 'update_ajax']);
+        Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
+        Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
+
+        Route::get('/barang/import', [BarangController::class, 'import']); // ajax form upload excel
+        Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); // ajax import excel
+        Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); // export excel
+        Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); // export pdf
     });
 
     //yang bisa diakses oleh customer
@@ -137,10 +137,4 @@ Route::middleware(['auth'])->group(function () {
         //Pembelian
         // Route::get('/pembelian', [PembelianController::class,'index']);
     });
-
 });
-
-
-
-
-    

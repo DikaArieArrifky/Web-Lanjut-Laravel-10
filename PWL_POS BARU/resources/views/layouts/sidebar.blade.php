@@ -19,6 +19,7 @@
                     <p>Dashboard</p>
                 </a>
             </li>
+            @if(Auth::user()->level->level_kode == 'ADM')
             <li class="nav-header">Data Pengguna</li>
             <li class="nav-item">
                 <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level') ? 'active' : '' }} ">
@@ -32,26 +33,35 @@
                     <p>Data User</p>
                 </a>
             </li>
+            @endif
+
+            @if(in_array(Auth::user()->level->level_kode, haystack: ['ADM', 'MNG', 'STF']))
             <li class="nav-header">Data Barang</li>
+            @endif
+            @if(in_array(Auth::user()->level->level_kode, ['ADM', 'MNG']))
             <li class="nav-item">
                 <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu == 'kategori') ? 'active' : '' }} ">
                     <i class="nav-icon far fa-bookmark"></i>
                     <p>Kategori Barang</p>
                 </a>
             </li>
+            @endif
+            @if(in_array(Auth::user()->level->level_kode, ['ADM', 'MNG', 'STF']))
             <li class="nav-item">
                 <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu == 'barang') ? 'active' : '' }} ">
                     <i class="nav-icon far fa-list-alt"></i>
                     <p>Data Barang</p>
                 </a>
             </li>
+            @if(in_array(Auth::user()->level->level_kode, ['ADM', 'MNG']))
             <li class="nav-header">Data Supplier</li>
             <li class="nav-item">
-                <a href="{{ url('/supplier') }}" class="nav-link {{ ($activeMenu == 'supplier') ? 'active' : '' }}">
+                <a href="{{ url('/supplier') }}" class="nav-link {{ $activeMenu == 'supplier' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-truck"></i>
-                    <p>Supplier</p>
+                    <p>Data Supplier</p>
                 </a>
             </li>
+            @endif
             <li class="nav-header">Data Transaksi</li>
             <li class="nav-item">
                 <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu == 'stok') ? 'active' : '' }} ">
@@ -65,6 +75,7 @@
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            @endif
             <!-- Logout -->
             <nav class="mt-5">
                 <ul class="nav nav-pills nav-sidebar flex-column">
