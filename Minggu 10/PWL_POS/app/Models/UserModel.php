@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable; //implementasi class autenthicatable
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject; //implementasi class autenthicatable
+
 // class UserModel extends Model
 // {
 //     use HasFactory;
@@ -21,10 +23,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable; //implementasi class aut
 //     }
 // }
 
-//jobsheet 7 
-class UserModel extends Authenticatable
-{
-    //praktikum 1 Implementasi Authentication 
+
+
+//jobsheet 7
+class UserModel extends Authenticatable implements JWTSubject
+
+{   //jobsheet 10 praktikum
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+    //jobsheet 7 praktikum 1 Implementasi Authentication 
     use HasFactory;
 
     protected $table = 'm_user';
