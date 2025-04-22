@@ -19,16 +19,7 @@
     <div class="row mx-3 mt-2">
         <div class="col-md-12">
             <div class="form-group row">
-                <label class="col-1 control-label col-form-label">Filter:</label>
-                <div class="col-4">
-                    <select class="form-control" id="user_id" name="user_id">
-                        <option value="">- Semua -</option>
-                        @foreach ($user as $item)
-                            <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
-                        @endforeach
-                    </select>
-                    <small class="form-text text-muted">Nama User</small>
-                </div>
+
             </div>
         </div>
     </div>

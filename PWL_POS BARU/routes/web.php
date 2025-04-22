@@ -36,10 +36,11 @@ Route::post('register', [AuthController::class, 'postregister']);
 
 //membagi role
 
-Route::get('/', [WelcomeController::class, 'index']);
+
 
 Route::middleware(['auth'])->group(function () {
     //CRUD user dan level hanya admin yang bisa
+    Route::get('/', [WelcomeController::class, 'index']);
     Route::middleware(['authorize:ADM'])->group(function () {
         // User
         Route::get('/user', [UserController::class, 'index']);           // menampilkan halaman awal user

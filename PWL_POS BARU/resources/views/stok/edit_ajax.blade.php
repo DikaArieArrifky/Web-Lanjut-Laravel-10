@@ -29,37 +29,36 @@
                     <label>Barang</label>
                     <select name="barang_id" id="barang_id" class="form-control" required>
                         <option value="">- Pilih Barang -</option>
-                        @foreach ($barangList as $item)
-                            <option value="{{ $item->barang_id }}" {{ $stok->barang_id == $item->barang_id ? 'selected' : '' }}>
-                                {{ $item->barang_nama }}
-                            </option>
+                        @foreach ($barang as $item)
+                        <option value="{{ $item->barang_id }}" {{ $stok->barang_id == $item->barang_id ? 'selected' : '' }}>
+                            {{ $item->barang_nama }}
+                        </option>
                         @endforeach
                     </select>
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
-                     <label>User</label>
-                     <div class="col-10">
-                         <select class="form-control" id="user_id" name="user_id" required>
-                             <option value="">- Pilih User -</option>
-                             @foreach($user as $item)
-                                 <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
-                             @endforeach
-                         </select>
-                         @error('user_id')
-                             <small class="text-danger">{{ $message }}</small>
-                         @enderror
-                     </div>
-                 </div>
+                    <label>User</label>
+                    <select name="user_id" id="user_id" class="form-control" required>
+                        <option value="">- Pilih User -</option>
+                        @foreach ($user as $item)
+                        <option value="{{ $item->user_id }}" {{ $stok->user_id == $item->user_id ? 'selected' : '' }}>
+                            {{ $item->nama }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <small id="error-user_id" class="error-text form-text text-danger"></small>
+                </div>
+
                 <div class="form-group">
                     <label>Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $stok->stok_jumlah }}" required>
+                    <input type="number" name="stok_jumlah" id="stok_jumlah" class="form-control" value="{{ $stok->stok_jumlah }}" required>
                     <small id="error-jumlah" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Tanggal Masuk</label>
-                    <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="{{ $stok->stok_tanggal }}" required>
+                    <input type="date" name="stok_tanggal" id="stok_tanggal" class="form-control" value="{{ $stok->stok_tanggal }}" required>
                     <small id="error-tanggal_masuk" class="error-text form-text text-danger"></small>
                 </div>
             </div>
@@ -72,21 +71,31 @@
 </form>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#form-edit-stok").validate({
             rules: {
-                barang_id: { required: true },
-                user_id: { required: true },    
-                stok_jumlah: { required: true, min: 1 },
-                tanggal_masuk: { required: true, date: true }
+                barang_id: {
+                    required: true
+                },
+                user_id: {
+                    required: true
+                },
+                stok_jumlah: {
+                    required: true,
+                    min: 1
+                },
+                stok_tanggal: {
+                    required: true,
+                    date: true
+                }
 
             },
-            submitHandler: function (form) {
+            submitHandler: function(form) {
                 $.ajax({
                     url: form.action,
                     type: form.method,
                     data: $(form).serialize(),
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status) {
                             $('#myModal').modal('hide');
                             Swal.fire({
@@ -97,7 +106,7 @@
                             dataStok.ajax.reload();
                         } else {
                             $('.error-text').text('');
-                            $.each(response.msgField, function (prefix, val) {
+                            $.each(response.msgField, function(prefix, val) {
                                 $('#error-' + prefix).text(val[0]);
                             });
                             Swal.fire({
@@ -111,14 +120,14 @@
                 return false;
             },
             errorElement: 'span',
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');
                 element.closest('.form-group').append(error);
             },
-            highlight: function (element) {
+            highlight: function(element) {
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function (element) {
+            unhighlight: function(element) {
                 $(element).removeClass('is-invalid');
             }
         });

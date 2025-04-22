@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
@@ -76,17 +77,27 @@
 <body>
     <table class="border-bottom-header">
         <tr>
-            <td width="15%" class="text-center"><img src="{{ asset('polinema-bw.png') }}"></td>
-            <td width="85%">
-                <span class="text-center d-block font-11 font-bold mb-1">KEMENTERIAN
-                    PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
-                <span class="text-center d-block font-13 font-bold mb-1">POLITEKNIK NEGERI
-                    MALANG</span>
-                <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang
-                    65141</span>
-                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-
-                    105, 0341-404420, Fax. (0341) 404420</span>
-                <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
+            <td width="15%" class="text-center align-middle">
+                <img src="{{ asset('polinema.jpg') }}" alt="Logo Polinema" width="80">
+            </td>
+            <td width="85%" class="text-center">
+                <div style="line-height: 1.4;">
+                    <div class="font-11 font-bold mb-1">
+                        KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
+                    </div>
+                    <div class="font-13 font-bold mb-1">
+                        POLITEKNIK NEGERI MALANG
+                    </div>
+                    <div class="font-10">
+                        Jl. Soekarno-Hatta No. 9 Malang 65141
+                    </div>
+                    <div class="font-10">
+                        Telepon (0341) 404424 Pes. 101–105, 0341-404420, Fax. (0341) 404420
+                    </div>
+                    <div class="font-10">
+                        Laman: www.polinema.ac.id
+                    </div>
+                </div>
             </td>
         </tr>
     </table>

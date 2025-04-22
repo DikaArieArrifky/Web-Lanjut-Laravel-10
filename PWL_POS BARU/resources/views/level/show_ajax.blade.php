@@ -16,14 +16,7 @@
                     <th>Nama Level</th>
                     <td>{{ $level->level_nama }}</td>
                 </tr>
-                <tr>
-                    <th>Dibuat Pada</th>
-                    <td>{{ $level->created_at }}</td>
-                </tr>
-                <tr>
-                    <th>Diperbarui Pada</th>
-                    <td>{{ $level->updated_at }}</td>
-                </tr>
+                
             </table>
         </div>
         <div class="modal-footer">

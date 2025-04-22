@@ -125,6 +125,7 @@ class StokController extends Controller
         $stok = StokModel::find($id);
         $barang = BarangModel::all();
         $user = UserModel::all();
+        
         return view('stok.edit_ajax', compact('stok', 'barang', 'user'));
     }
 
@@ -134,7 +135,7 @@ class StokController extends Controller
             $rules = [
                 'barang_id' => 'required|exists:m_barang,barang_id',
                 'user_id' => 'required|exists:m_user,user_id',
-                'stok_tanggal' => 'required|date',
+                'stok_tanggal' => 'date',
                 'stok_jumlah' => 'required|numeric',
             ];
             $validator = Validator::make($request->all(), $rules);

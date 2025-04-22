@@ -16,18 +16,7 @@
     @endif
     <div class="row mx-3 mt-2">
         <div class="col-md-12">
-            <div class="form-group row">
-                <label class="col-1 control-label col-form-label">Filter:</label>
-                <div class="col-3">
-                    <select class="form-control" id="level_kode" name="level_kode">
-                        <option value="">- Semua -</option>
-                        @foreach ($level as $item)
-                        <option value="{{ $item->level_kode }}">{{ $item->level_kode }}</option>
-                        @endforeach
-                    </select>
-                    <small class="form-text text-muted">Kode Level</small>
-                </div>
-            </div>
+            
         </div>
     </div>
     <div class="card-body">

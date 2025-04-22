@@ -42,7 +42,7 @@
                                     <td>{{ $detail->barang->barang_nama ?? '-' }}</td>
                                     <td>{{ $detail->jumlah }}</td>
                                     <td>Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
-                                    <td>Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($detail->harga * $detail->jumlah, 0, ',', '.') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
