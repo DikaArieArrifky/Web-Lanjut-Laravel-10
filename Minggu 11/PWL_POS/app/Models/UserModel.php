@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject; //implementasi class autenthicatable
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 // class UserModel extends Model
 // {
@@ -29,6 +30,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject; //implementasi class autenthicatable
 class UserModel extends Authenticatable implements JWTSubject
 
 {   //jobsheet 10 praktikum
+    use HasFactory;
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -38,22 +40,34 @@ class UserModel extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    //jobsheet 7 praktikum 1 Implementasi Authentication 
-    use HasFactory;
 
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['username', 'password', 'nama', 'level_id', 'created_at', 'updated_at'];
-
-    protected $hidden = ['password', '']; // jangan ditampilkan saat select
-
-    protected $casts = ['password' => 'hashed']; //casting password agar otomatis di hash
-
+    protected $fillable = [
+        'username',
+        'password',
+        'nama',
+        'level_id',
+        'created_at',
+        'updated_at',
+        'image',//tambahan
+    ];
     public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
+    public function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn($image) => asset(path: '/storage/posts/' . $image),
+        );
+    }
+
+
+    protected $hidden = ['password', '']; // jangan ditampilkan saat select
+
+    protected $casts = ['password' => 'hashed']; //casting password agar otomatis di hash
 
     //praktikum 2 Implementasi Authorizaton di Laravel dengan Middleware
     public function getRoleName(): string
